@@ -1,0 +1,29 @@
+{
+  "name": "homebridge-arlo",
+  "version": "0.0.1",
+  "description": "Homebridge plugin for Netgear Arlo",
+  "main": "index.js",
+  "dependencies": {
+    "node-fetch": "^2.2.0",
+    "eventsource": "^1.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduardoboucas/homebridge-arlo.git"
+  },
+  "keywords": [
+    "homebridge",
+    "arlo",
+    "netgear"
+  ],
+  "author": "Eduardo Boucas <mail@eduardoboucas.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eduardoboucas/homebridge-arlo/issues"
+  },
+  "homepage": "https://github.com/eduardoboucas/homebridge-arlo#readme"
+}
