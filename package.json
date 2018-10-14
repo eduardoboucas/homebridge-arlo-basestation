@@ -1,11 +1,11 @@
 {
-  "name": "homebridge-arlo",
+  "name": "homebridge-arlo-basestation",
   "version": "0.0.1",
   "description": "Homebridge plugin for Netgear Arlo",
   "main": "index.js",
   "dependencies": {
-    "node-fetch": "^2.2.0",
-    "eventsource": "^1.0.7"
+    "eventsource": "^1.0.7",
+    "node-fetch": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -13,17 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eduardoboucas/homebridge-arlo.git"
+    "url": "git+https://github.com/eduardoboucas/homebridge-arlo-basestation.git"
   },
   "keywords": [
-    "homebridge",
+    "homebridge-plugin",
     "arlo",
     "netgear"
   ],
-  "author": "Eduardo Boucas <mail@eduardoboucas.com>",
+  "engines": {
+    "homebridge": ">=0.2.0"
+  },
+  "author": "Eduardo Bouças",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eduardoboucas/homebridge-arlo/issues"
+    "url": "https://github.com/eduardoboucas/homebridge-arlo-basestation/issues"
   },
-  "homepage": "https://github.com/eduardoboucas/homebridge-arlo#readme"
+  "homepage": "https://github.com/eduardoboucas/homebridge-arlo-basestation#readme"
 }
