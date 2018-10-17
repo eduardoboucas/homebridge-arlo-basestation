@@ -38,18 +38,12 @@ class Arlo {
     this.initialise()
   }
 
-  authenticate() {
-    if (this.token) {
-      return Promise.resolve(this.token)
-    }
-
-    let payload = {
-      email: this.config.authentication.email,
-      password: this.config.authentication.password
-    }
-
+  authenticate({email, password}) {
     return this.sendRequest({
-      body: payload,
+      body: {
+        email,
+        password
+      },
       url: '/login/v2'
     }).then(response => {
       let token = response.data && response.data.token
@@ -140,8 +134,18 @@ class Arlo {
   }
 
   initialise() {
-    return this.authenticate().then(token => {
+    return this.authenticate({
+      email: this.config.authenticationPrimary.email,
+      password: this.config.authenticationPrimary.password
+    }).then(token => {
       this.token = token
+
+      return this.authenticate({
+        email: this.config.authenticationSecondary.email,
+        password: this.config.authenticationSecondary.password
+      })
+    }).then(token => {
+      this.tokenPolling = token
 
       return this.getBaseStation()
     }).then(baseStation => {
@@ -232,10 +236,11 @@ class Arlo {
   setupEventSubscriber() {
     this.log('Initialising event subscriber')
 
-    let eventSource = new EventSource(`${this.API_URL}/client/subscribe`, {
+    let eventSource = new EventSource(`${this.API_URL}/client/subscribe?token=${this.tokenPolling}`, {
       headers: {
-        Authorization: this.token,
-        xcloudid: this.baseStation.xCloudId
+        Accept: 'text/event-stream',
+        Host: 'arlo.netgear.com',
+        Referer: 'https://arlo.netgear.com/'
       },
       https: {
         rejectUnauthorized: false
@@ -247,6 +252,8 @@ class Arlo {
     }
 
     eventSource.onmessage = event => {
+      this.log(event)
+
       if (event.type === 'message') {
         try {
           let data = JSON.parse(event.data)
